@@ -7,17 +7,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Prompts user to input card name
+truncates input after 2 characters
+modifies contents of card_name to user input*/
 void getinput(char *card_name)
 {
 	puts("Enter the card_name: ");
 	scanf("%2s", card_name);
 }
 
+/* Prints formatted value*/
 void print_value(int val)
 {
 	printf("The card value is: %i\n", val);
 }
 
+/* Takes in value and checks if value is in desired range
+returns 1 or 0*/
 int check_valid_value(int val)
 {
 	if ((val<11) || (val>10)) {
@@ -28,6 +34,8 @@ int check_valid_value(int val)
 	}
 }
 
+/* Takes in card array
+Returns value of the card*/
 int card_value(char *card)
 {
 	int val = 0;
@@ -46,6 +54,9 @@ int card_value(char *card)
 	return val;
 }
 
+/* Increments count integer by 1 or -1 if
+card value in appropriate range
+prints the count after it is updated*/
 void update_count(int val, int* count)
 {
 	if ((val>2) && (val<7)) {
@@ -56,6 +67,8 @@ void update_count(int val, int* count)
 	printf("Current count: %i\n", *count);
 }
 
+/* Takes user input, checks value of card,
+updates the count and repeats until the user inputs X*/
 void card_loop()
 {
 	char card[3];
