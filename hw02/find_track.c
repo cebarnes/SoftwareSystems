@@ -51,10 +51,10 @@ void find_track_regex(char pattern[])
     for (i=0; i<NUM_TRACKS; i++) {
         status = regexec(&re, tracks[i], (size_t) 0, NULL, 0);
         if (status == 0) {
-            printf("Track %i: '%s'\n", i, tracks[i]);      /* report error */
+            printf("Track %i: '%s'\n", i, tracks[i]);    
         }
     }
-    printf("No match or error");   
+    printf("No matches");   /* report no matches */
     regfree(&re);
 }
 
