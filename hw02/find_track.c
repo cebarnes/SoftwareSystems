@@ -42,6 +42,7 @@ void find_track_regex(char pattern[])
     int    status;
     regex_t    re;
     int i = 0;
+    int match = 0;
 
     if (regcomp(&re, pattern, 0) != 0) {
             printf("Pattern failed to compile.");      /* report error */
@@ -51,10 +52,12 @@ void find_track_regex(char pattern[])
     for (i=0; i<NUM_TRACKS; i++) {
         status = regexec(&re, tracks[i], (size_t) 0, NULL, 0);
         if (status == 0) {
+            match++;
             printf("Track %i: '%s'\n", i, tracks[i]);    
         }
     }
-    printf("No matches");   /* report no matches */
+    if (match == 0)
+        printf("No matches \n");   /* report no matches */
     regfree(&re);
 }
 
