@@ -7,7 +7,7 @@ License: Creative Commons Attribution-ShareAlike 3.0
 
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+#include <stdlib.h> 
 
 char *tracks[] = {
     "So What",
@@ -22,8 +22,24 @@ char *tracks[] = {
 */
 char *strjoin(char *array[], int n)
 {
-    // TODO: fill this in
-    return NULL;
+    int i;
+    int total = 1;
+    char *dest, *buf;
+
+    for (i=0; i<n; i++) {
+        total += strlen(array[i]);
+    }
+
+    buf = (char *) malloc(total * sizeof(char));
+    buf[0] = '\0';
+    dest = buf;
+
+    for (i=0; i<n; i++) {
+        strcpy(dest, array[i]);
+        dest += strlen(array[i]);
+    }
+
+    return buf;
 }
 
 
