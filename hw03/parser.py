@@ -86,6 +86,6 @@ if __name__ == '__main__':
     f = open('actresses.txt', 'w')
 
     def write_info(actor, date, title, role):
-        f.write(actor + '|' + title + '\n')
+        f.write(actor + '|' + title + '|' + str(date) + '|'+ str(role) + '\n')
 
     process_file('actresses.list.gz', write_info)
