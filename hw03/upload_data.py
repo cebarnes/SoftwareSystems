@@ -1,45 +1,26 @@
 import pymongo
 from pymongo import MongoClient
+import re
+from parser2 import create_docs, separate_docs
 
-"""
-Takes a
-"""
-def make_collection(datab, t):
 
-    posts = datab.posts
-
-    for doc in t:
-        post_id = post.insert(doc)
-
-    return datab
-
-doc =  {'name': 'Kevin Bacon',
-               'movies': ['Animal House', 'Apollo 13']}
-
-client = MongoClient
+client = MongoClient()
 db = client.test_database
 collection = db.test_collection
-post_id = post.insert(doc)
+posts = db.posts
 
-# def main():
-#     example_doc =  {'name': 'Kevin Bacon',
-#                     'movies': ['Animal House', 'Apollo 13']}
 
-#     doc2 = {'name': 'Jeremy Sumpter',
-#             'movies': 'Peter Pan'}
+def upload_data(docs, t):
+    for i in range(t):  
+        # post_id = posts.insert(t[i])
+        print t[i]
 
-#     t = []
-#     t.append(example_doc)
-#     t.append(doc2)
 
-#     client = MongoClient
-#     db = client.test_database
-#     collection = db.test_collection
+a,b = create_docs('actresses.txt')
+name_to_mov = separate_docs(a, u'name', u'movies')
+mov_to_name = separate_docs(b, u'movie', u'actors')
 
-#     newdb = make_collection(t)
-#     print db.collection_names()
+posts.insert(name_to_mov)
+posts.insert(mov_to_name)
 
-if __name__ == '__main__':
-    main()
-
-# print(posts.find_one({'movies': 'Animal House'}))
+posts.find_one(name="Aaliyah")
