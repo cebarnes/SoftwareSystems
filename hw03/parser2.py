@@ -1,17 +1,18 @@
 import re
-# name = line[0].strip().split('|')
-# name2 = name[0].split(',')
-# first = name2[1].strip()
-# last = name2[0].strip()
-# title = name[1].strip()
 
-def something(filename):
+def create_docs(filename):
     f = open(filename, 'r')
+    name_to_mov = {}
+    mov_to_name = {}
+
     for line in f.readlines():
-        d = {}
+        try:
+            line.decode('utf-8').encode('utf-8')
+        except UnicodeDecodeError:
+            # print "Could not decode line %s" % line
+            continue
         items = line.split('|')
-        print items
-        
+
         # Get Names
         names = items[0].split(',')
         last = re.sub(r'\(.*?\)', '', names[0]).strip()
@@ -20,9 +21,36 @@ def something(filename):
             name = first + ' ' + last
         else:
             name = last
-        d['name'] = name
 
+        # Get Movie
+        movie = items[1].strip()
 
+        # # Get Year
+        year = int(items[2].replace('(', '').replace(')', ''))
 
+        # # Get Role
+        role = items[3].replace('[', '').replace(']','').strip()
 
-something('actresses.txt') 
+        # Add/Update dictionary name --> movies
+        if name in name_to_mov.keys():
+            name_to_mov[name] += [movie]
+        else:
+            name_to_mov[name] = [movie] 
+
+        # Add/Update dictionary movie --> names
+        if movie in mov_to_name.keys():
+            mov_to_name[movie] += [name]
+        else:
+            mov_to_name[movie] = [name]
+
+    return name_to_mov, mov_to_name
+
+def separate_docs(d , s1, s2):
+    list_of_dicts = []
+    for key in d:
+        list_of_dicts.append({s1:key, s2: d[key]})
+    return list_of_dicts
+
+if __name__ == '__main__':
+    a,b = create_docs('actresses.txt') 
+    print separate_docs(a, 'movies')

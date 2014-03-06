@@ -1,26 +1,26 @@
 import pymongo
 from pymongo import MongoClient
+import re
+from parser2 import create_docs, separate_docs
 
 
 client = MongoClient()
-db = client.text_database
+db = client.test_database
 collection = db.test_collection
 posts = db.posts
 
-def main():
-    doc =  {'name': 'Kevin Bacon',
-            'movies': ['Animal House', 'Apollo 13']}
-    t = []
-    t.append(doc)
-
-    upload_data(posts, t)
-    print db.collection_names()
 
 def upload_data(docs, t):
-    for doc in t:
-        post_id = docs.insert(doc)
-    return docs
+    for i in range(t):  
+        # post_id = posts.insert(t[i])
+        print t[i]
 
 
-if __name__ == '__main__':
-    main()
+a,b = create_docs('actresses.txt')
+name_to_mov = separate_docs(a, u'name', u'movies')
+mov_to_name = separate_docs(b, u'movie', u'actors')
+
+posts.insert(name_to_mov)
+posts.insert(mov_to_name)
+
+posts.find_one(name="Aaliyah")
